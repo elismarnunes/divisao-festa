@@ -1,13 +1,19 @@
-const CACHE = "divisor-festa-v1";
+const CACHE = "divisao-v1";
+const FILES = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon.png"
+];
+
 self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll([
-    "./",
-    "./index.html",
-    "./manifest.json",
-    "./icon-192.png",
-    "./icon-512.png"
-  ])));
+  e.waitUntil(
+    caches.open(CACHE).then(cache => cache.addAll(FILES))
+  );
 });
+
 self.addEventListener("fetch", e => {
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+  e.respondWith(
+    caches.match(e.request).then(res => res || fetch(e.request))
+  );
 });
