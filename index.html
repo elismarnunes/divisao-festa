@@ -121,16 +121,31 @@ body.light #infoFesta{
 }
 
 .grupo{
- background:var(--soft);
- border-radius:18px;
- padding:12px;
+ background:linear-gradient(145deg,#0b1228,#020617);
+ border-radius:20px;
+ padding:14px;
  margin-top:12px;
  border:1px solid var(--border);
+ box-shadow:0 8px 22px rgba(0,0,0,.35);
+ transition:.25s;
+}
+
+.grupo:active{
+ transform:scale(.99);
+}
+
+.grupo{
+ animation:fadeUp .25s ease;
+}
+
+@keyframes fadeUp{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:none}
 }
 
 .linha{
  display:grid;
- grid-template-columns: 1fr 70px 70px 44px;
+ grid-template-columns: 1fr 80px 80px 44px;
  gap:12px;
  align-items:end;
 }
@@ -188,6 +203,7 @@ input[type="checkbox"]{
  cursor:pointer;
 }
 
+/* Alinhamento perfeito checkbox mobile */
 .col-meia{
  display:flex;
  flex-direction:column;
@@ -198,6 +214,15 @@ input[type="checkbox"]{
 .col-meia input[type="checkbox"]{
  margin:6px 0 0;
  transform:scale(1.25);
+}
+
+button{
+ min-height:52px;
+}
+
+button:active{
+ transform:scale(.96);
+ filter:brightness(1.08);
 }
 
 </style>
@@ -286,10 +311,9 @@ function addGrupo(){
   </div>
 
   <div class="col-meia">
-   <label>Pg ½</label>
-   <input type="checkbox" class="meia">
+  <label>Pg ½</label>
+  <input type="checkbox" class="meia">
 </div>
-
 
   <div>
    <label>Dias</label>
