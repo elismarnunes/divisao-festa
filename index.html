@@ -138,23 +138,6 @@ body.light #infoFesta{
  animation:fadeUp .25s ease;
 }
 
-.grupo{
- position:relative;
- overflow:hidden;
-}
-
-.grupo::after{
- content:"Deslize para excluir";
- position:absolute;
- right:12px;
- top:50%;
- transform:translateY(-50%);
- font-size:11px;
- color:var(--muted);
- opacity:.4;
- pointer-events:none;
-}
-
 @keyframes fadeUp{
  from{opacity:0;transform:translateY(8px)}
  to{opacity:1;transform:none}
@@ -242,23 +225,6 @@ button:active{
  filter:brightness(1.08);
 }
 
-.resultado{
- animation:fadeResult .35s ease;
-}
-
-@keyframes fadeResult{
- from{opacity:0;transform:scale(.97)}
- to{opacity:1;transform:none}
-}
-
-*{
- -webkit-tap-highlight-color:transparent;
-}
-
-button, .grupo{
- transition:.25s cubic-bezier(.4,0,.2,1);
-}
-
 </style>
 
 </head>
@@ -267,7 +233,7 @@ button, .grupo{
 
 <div class="card" id="app">
 <h2 style="text-align:center;font-weight:700;letter-spacing:.3px"> 🍾 Divisão de Gastos</h2>
-<button onclick="vibrar(); novaFesta()">➕ Nova Festa</button>
+<button onclick="novaFesta()">➕ Nova Festa</button>
 
 <div id="infoFesta" class="hidden">
  <b id="nomeFesta"></b><br>
@@ -276,9 +242,9 @@ button, .grupo{
 
 <div id="grupos"></div>
 
-<button onclick="vibrar(); addGrupo()">➕ Adicionar grupo</button>
-<button onclick="vibrar(); calcular()">🧮 Calcular</button>
-<button onclick="vibrar(); limparTela()">🧹 Limpar Tela</button>
+<button onclick="addGrupo()">➕ Adicionar grupo</button>
+<button onclick="calcular()">🧮 Calcular</button>
+<button onclick="limparTela()">🧹 Limpar Tela</button>
 
 <div id="resultado" class="resultado hidden"></div>
 
@@ -337,10 +303,6 @@ function novaFesta(){
 function addGrupo(){
  const d=document.createElement('div');
  d.className='grupo';
-
- let startX=0;
- let currentX=0;
-
  d.innerHTML=`
  <div class="linha">
   <div>
@@ -349,9 +311,9 @@ function addGrupo(){
   </div>
 
   <div class="col-meia">
-   <label>½</label>
-   <input type="checkbox" class="meia">
-  </div>
+  <label>Pg ½</label>
+  <input type="checkbox" class="meia">
+</div>
 
   <div>
    <label>Dias</label>
@@ -361,28 +323,8 @@ function addGrupo(){
   <button class="danger" onclick="this.closest('.grupo').remove()">
     <span class="x-preto">X</span>
   </button>
+
  </div>`;
-
- d.addEventListener('touchstart',e=>{
-  startX=e.touches[0].clientX;
- });
-
- d.addEventListener('touchmove',e=>{
-  currentX=e.touches[0].clientX - startX;
-  if(currentX<0){
-    d.style.transform=`translateX(${currentX}px)`;
-  }
- });
-
- d.addEventListener('touchend',()=>{
-  if(currentX<-120){
-    navigator.vibrate?.(60);
-    d.remove();
-  }else{
-    d.style.transform='';
-  }
- });
-
  grupos.appendChild(d);
 }
 
@@ -470,10 +412,6 @@ function limparTela(){
  document.getElementById('qrcode').innerHTML = '';
 
  addGrupo();
-}
-
-function vibrar(ms=30){
- if(navigator.vibrate) navigator.vibrate(ms);
 }
 
 function toggleTema(){document.body.classList.toggle('light');}
