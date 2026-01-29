@@ -133,6 +133,13 @@ body.light #infoFesta{
  gap:10px;
 }
 
+.creditos{
+ margin-top:12px;
+ text-align:center;
+ font-size:12px;
+ color:var(--muted);
+}
+
 .resultado{
  background:var(--soft);
  border-radius:18px;
@@ -196,6 +203,13 @@ input[type="checkbox"]{
  <button onclick="abrirHistorico()">📚 Histórico</button>
  <button onclick="toggleTema()">🌗 Tema</button>
 </div>
+
+
+
+<div class="creditos">
+ © <span id="ano"></span> — Desenvolvido por <b>Elismar Nunes de Paula</b>
+</div>
+
 </div>
 
 <div class="card hidden" id="telaQR" style="text-align:center">
@@ -213,6 +227,8 @@ input[type="checkbox"]{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script>
+document.getElementById('ano').innerText = new Date().getFullYear();
+
 const SITE = location.origin + location.pathname;
 const KEY='historico_festas';
 let festaAtual=null;
@@ -288,13 +304,6 @@ function calcular(){
  salvarHistorico();
 }
 
-function gerarLink(){
-  return SITE + '?dados=' + encodeURIComponent(btoa(JSON.stringify({
-    festa: festaAtual,
-    resultado: resultado.textContent
-  })));
-}
-
 function abrirQR(){
   const box=document.getElementById('qrcode');
   box.innerHTML='';
@@ -355,17 +364,6 @@ function limparTela(){
 function toggleTema(){document.body.classList.toggle('light');}
 
 function voltar(){telaQR.classList.add('hidden');telaHistorico.classList.add('hidden');app.classList.remove('hidden');}
-
-const params=new URLSearchParams(location.search);
-if(params.get('dados')){
- const d=JSON.parse(atob(decodeURIComponent(params.get('dados'))));
- festaAtual=d.festa;
- nomeFesta.innerText=festaAtual.nome;
- valorFesta.innerText='💰 R$ '+festaAtual.valor.toFixed(2);
- infoFesta.classList.remove('hidden');
- resultado.textContent=d.resultado;
- resultado.classList.remove('hidden');
-}
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js');}
 </script>
