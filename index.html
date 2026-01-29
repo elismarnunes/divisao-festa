@@ -183,9 +183,18 @@ label{
 
 input[type="checkbox"]{
  transform:scale(1.3);
- margin-top:10px;
+ margin: 10px auto 0;
+ display:block;
  cursor:pointer;
 }
+
+.col-meia{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:flex-end;
+}
+
 </style>
 
 </head>
@@ -271,8 +280,8 @@ function addGrupo(){
    <input type="number" class="qtd" min="1" value="1">
   </div>
 
-  <div style="text-align:center">
-   <label>½</label><br>
+  <div class="col-meia">
+   <label>Pg ½</label><br>
    <input type="checkbox" class="meia">
   </div>
 
