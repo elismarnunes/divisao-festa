@@ -82,7 +82,18 @@ button{
 button:active{transform:scale(.97)}
 
 .danger{
- background:linear-gradient(135deg,#ef4444,#b91c1c);
+ background:linear-gradient(135deg,#ef4444,#020712); 
+}
+
+.x-preto{
+ color:#000;
+}
+
+.x-preto{
+ color:#000;
+ font-weight:900;
+ font-size:18px;
+ line-height:1;
 }
 
 input{
@@ -270,7 +281,10 @@ function addGrupo(){
    <input type="number" class="dias" min="1" value="1">
   </div>
 
-  <button class="danger" style="height:44px" onclick="this.closest('.grupo').remove()">❌</button>
+  <button class="danger" onclick="this.closest('.grupo').remove()">
+    <span class="x-preto">X</span>
+  </button>
+
  </div>`;
  grupos.appendChild(d);
 }
